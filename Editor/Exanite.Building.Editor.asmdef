@@ -1,8 +1,6 @@
 {
-    "name": "Exanite.Arpg.Editor",
-    "references": [
-        "Exanite.Arpg"
-    ],
+    "name": "Exanite.Building.Editor",
+    "references": [],
     "includePlatforms": [
         "Editor"
     ],

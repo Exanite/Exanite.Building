@@ -1,6 +1,5 @@
 {
-    "name": "Exanite.SceneManagement",
-    "rootNamespace": "",
+    "name": "Exanite.Building",
     "references": [
         "Exanite.Core"
     ],
