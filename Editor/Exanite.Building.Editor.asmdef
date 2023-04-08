@@ -1,6 +1,8 @@
 {
     "name": "Exanite.Building.Editor",
-    "references": [],
+    "references": [
+        "Exanite.Building"
+    ],
     "includePlatforms": [
         "Editor"
     ],

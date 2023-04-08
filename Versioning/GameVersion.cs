@@ -1,22 +1,13 @@
-﻿using Exanite.Arpg.Logging;
-using Exanite.Arpg.Versioning.Internal;
+﻿using Exanite.Arpg.Versioning.Internal;
 using UnityEngine;
-using Zenject;
 
 namespace Exanite.Arpg.Versioning
 {
     /// <summary>
-    /// Contains information about the game and its current version
+    ///     Contains information about the game and its current version
     /// </summary>
     public class GameVersion : MonoBehaviour
     {
-        private string company;
-        private string product;
-
-        private string version;
-        private string branch;
-        private string number;
-
         private ILog log;
 
         [Inject]
@@ -30,75 +21,38 @@ namespace Exanite.Arpg.Versioning
         }
 
         /// <summary>
-        /// Game company name
+        ///     Game company name
         /// </summary>
-        public string Company
-        {
-            get
-            {
-                return company;
-            }
-
-            set
-            {
-                company = value;
-            }
-        }
+        public string Company { get; set; }
 
         /// <summary>
-        /// Game product name
+        ///     Game product name
         /// </summary>
-        public string Product
-        {
-            get
-            {
-                return product;
-            }
-
-            set
-            {
-                product = value;
-            }
-        }
+        public string Product { get; set; }
 
         /// <summary>
-        /// The version of the game<para/>
-        /// Format: branch/0.0.0.0
+        ///     The version of the game
+        ///     <para/>
+        ///     Format: branch/0.0.0.0
         /// </summary>
-        public string Version
-        {
-            get
-            {
-                return version;
-            }
-        }
+        public string Version { get; private set; }
 
         /// <summary>
-        /// The branch the game is built on<para/>
-        /// Format: branch
+        ///     The branch the game is built on
+        ///     <para/>
+        ///     Format: branch
         /// </summary>
-        public string Branch
-        {
-            get
-            {
-                return branch;
-            }
-        }
+        public string Branch { get; private set; }
 
         /// <summary>
-        /// The version number of the game<para/>
-        /// Format: 0.0.0.0
+        ///     The version number of the game
+        ///     <para/>
+        ///     Format: 0.0.0.0
         /// </summary>
-        public string Number
-        {
-            get
-            {
-                return number;
-            }
-        }
+        public string Number { get; private set; }
 
         /// <summary>
-        /// Logs the current game version
+        ///     Logs the current game version
         /// </summary>
         public void LogCurrentVersion()
         {
@@ -113,8 +67,8 @@ namespace Exanite.Arpg.Versioning
 
         private void GetProductInfo()
         {
-            company = Application.companyName;
-            product = Application.productName;
+            Company = Application.companyName;
+            Product = Application.productName;
         }
 
         private void GetVersionInfo()
@@ -123,7 +77,7 @@ namespace Exanite.Arpg.Versioning
             {
                 try
                 {
-                    version = $"{Git.GetBranchName()}/{Git.GenerateCommitVersion()}";
+                    Version = $"{Git.GetBranchName()}/{Git.GenerateCommitVersion()}";
                 }
                 catch (GitException e)
                 {
@@ -132,13 +86,13 @@ namespace Exanite.Arpg.Versioning
             }
             else
             {
-                version = Application.version;
+                Version = Application.version;
             }
 
-            int index = version.LastIndexOf('/');
+            var index = Version.LastIndexOf('/');
 
-            branch = version.Substring(0, index);
-            number = version.Substring(index + 1);
+            Branch = Version.Substring(0, index);
+            Number = Version.Substring(index + 1);
         }
     }
 }

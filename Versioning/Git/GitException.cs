@@ -10,29 +10,21 @@ using System;
 namespace Exanite.Arpg.Versioning.Internal
 {
     /// <summary>
-    /// The exception that is thrown when Git fails to exit successfully
+    ///     The exception that is thrown when Git fails to exit successfully
     /// </summary>
     public class GitException : InvalidOperationException
     {
-        private readonly int exitCode;
-
         /// <summary>
-        /// Creates a new <see cref="GitException"/>
+        ///     Creates a new <see cref="GitException"/>
         /// </summary>
         public GitException(int exitCode, string errors) : base($"\n{errors}")
         {
-            this.exitCode = exitCode;
+            ExitCode = exitCode;
         }
 
         /// <summary>
-        /// Exit code specified by Git
+        ///     Exit code specified by Git
         /// </summary>
-        public int ExitCode
-        {
-            get
-            {
-                return exitCode;
-            }
-        }
+        public int ExitCode { get; }
     }
 }

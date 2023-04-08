@@ -12,15 +12,17 @@ using System.Text.RegularExpressions;
 namespace Exanite.Arpg.Versioning.Internal
 {
     /// <summary>
-    /// Used to run Git commands in C#
+    ///     Used to run Git commands in C#
     /// </summary>
     public static class Git
     {
         public const string Application = @"git";
 
         /// <summary>
-        /// Generates a version based on the latest tag and the amount of commits<para/>
-        /// Format: 0.1.2.3 (where 3 is the amount of commits)
+        ///     Generates a version based on the latest tag and the amount of
+        ///     commits
+        ///     <para/>
+        ///     Format: 0.1.2.3 (where 3 is the amount of commits)
         /// </summary>
         public static string GenerateCommitVersion()
         {
@@ -42,12 +44,14 @@ namespace Exanite.Arpg.Versioning.Internal
         }
 
         /// <summary>
-        /// Gets the current checked out branch's name<para/>
-        /// This is for retrieving the correct branch name during Github Actions CI, but can be used normally
+        ///     Gets the current checked out branch's name
+        ///     <para/>
+        ///     This is for retrieving the correct branch name during Github
+        ///     Actions CI, but can be used normally
         /// </summary>
         public static string GetBranchNameGithubActionsFix()
         {
-            string headRef = Environment.GetEnvironmentVariable("GITHUB_HEAD_REF");
+            var headRef = Environment.GetEnvironmentVariable("GITHUB_HEAD_REF");
 
             if (!string.IsNullOrWhiteSpace(headRef))
             {
@@ -58,7 +62,7 @@ namespace Exanite.Arpg.Versioning.Internal
         }
 
         /// <summary>
-        /// Gets the current checked out branch's name
+        ///     Gets the current checked out branch's name
         /// </summary>
         public static string GetBranchName()
         {
@@ -66,23 +70,25 @@ namespace Exanite.Arpg.Versioning.Internal
         }
 
         /// <summary>
-        /// Gets the total number of commits
+        ///     Gets the total number of commits
         /// </summary>
         public static int GetTotalNumberOfCommits()
         {
-            string numberOfCommitsAsString = Run(@"rev-list --count HEAD");
+            var numberOfCommitsAsString = Run(@"rev-list --count HEAD");
 
             return int.Parse(numberOfCommitsAsString);
         }
 
         /// <summary>
-        /// Retrieves the build version from git based on the most recent matching tag and commit history<para/>
-        /// Format: 0.1.2.3 (where 3 is the amount of commits)
+        ///     Retrieves the build version from git based on the most recent
+        ///     matching tag and commit history
+        ///     <para/>
+        ///     Format: 0.1.2.3 (where 3 is the amount of commits)
         /// </summary>
         public static string GetCommitInfo()
         {
             // v0.1-2-g12345678 (where 2 is the amount of commits, g stands for git)
-            string version = GetVersionString();
+            var version = GetVersionString();
             // 0.1-2
             version = version.Substring(1, version.LastIndexOf('-') - 1);
             // 0.1.2
@@ -92,8 +98,10 @@ namespace Exanite.Arpg.Versioning.Internal
         }
 
         /// <summary>
-        /// Gets version string<para/>
-        /// Format: v0.1-2-g12345678 (where 2 is the amount of commits since the last tag)
+        ///     Gets version string
+        ///     <para/>
+        ///     Format: v0.1-2-g12345678 (where 2 is the amount of commits since
+        ///     the last tag)
         /// </summary>
         public static string GetVersionString()
         {
@@ -103,12 +111,12 @@ namespace Exanite.Arpg.Versioning.Internal
         }
 
         /// <summary>
-        /// Whether or not the repository has any version tags yet
+        ///     Whether or not the repository has any version tags yet
         /// </summary>
         public static bool HasAnyVersionTags()
         {
-            string output = Run(@"tag --list --merged HEAD");
-            Regex regex = new Regex("v[0-9]*");
+            var output = Run(@"tag --list --merged HEAD");
+            var regex = new Regex("v[0-9]*");
 
             var matches = regex.Matches(output);
 
@@ -116,14 +124,14 @@ namespace Exanite.Arpg.Versioning.Internal
         }
 
         /// <summary>
-        /// Runs git binary with any given arguments and returns the output.
+        ///     Runs git binary with any given arguments and returns the output.
         /// </summary>
         public static string Run(string arguments)
         {
             using (var process = new Process())
             {
-                string workingDirectory = UnityEngine.Application.dataPath;
-                int exitCode = process.Run(Application, arguments, workingDirectory, out string output, out string errors);
+                var workingDirectory = UnityEngine.Application.dataPath;
+                var exitCode = process.Run(Application, arguments, workingDirectory, out var output, out var errors);
 
                 if (exitCode != 0)
                 {

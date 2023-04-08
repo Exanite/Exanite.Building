@@ -13,18 +13,38 @@ namespace Exanite.Arpg.Versioning.Internal
     public static class ProcessExtensions
     {
         /// <summary>
-        /// Executes an application with given arguments
+        ///     Executes an application with given arguments
         /// </summary>
-        /// <param name="process">The <see cref="Process"/> to use</param>
-        /// <param name="application">Application for the <see cref="Process"/> to run</param>
-        /// <param name="arguments">Arguments to supply to the <see cref="Process"/></param>
-        /// <param name="workingDirectory">Directory the <see cref="Process"/> will run in</param>
-        /// <param name="output"><see cref="string"/> containing output from the <see cref="Process"/></param>
-        /// <param name="errors"><see cref="string"/> containing errors from the <see cref="Process"/></param>
-        /// <returns>The process exit code</returns>
-        public static int Run(this Process process,
-            string application, string arguments, string workingDirectory,
-            out string output, out string errors)
+        /// <param name="process">
+        ///     The <see cref="Process"/> to use
+        /// </param>
+        /// <param name="application">
+        ///     Application for the <see cref="Process"/> to run
+        /// </param>
+        /// <param name="arguments">
+        ///     Arguments to supply to the <see cref="Process"/>
+        /// </param>
+        /// <param name="workingDirectory">
+        ///     Directory the <see cref="Process"/> will run in
+        /// </param>
+        /// <param name="output">
+        ///     <see cref="string"/> containing output from the
+        ///     <see cref="Process"/>
+        /// </param>
+        /// <param name="errors">
+        ///     <see cref="string"/> containing errors from the
+        ///     <see cref="Process"/>
+        /// </param>
+        /// <returns>
+        ///     The process exit code
+        /// </returns>
+        public static int Run(
+            this Process process,
+            string application,
+            string arguments,
+            string workingDirectory,
+            out string output,
+            out string errors)
         {
             // Configure how to run the application
             process.StartInfo = new ProcessStartInfo
@@ -35,7 +55,7 @@ namespace Exanite.Arpg.Versioning.Internal
                 RedirectStandardOutput = true,
                 FileName = application,
                 Arguments = arguments,
-                WorkingDirectory = workingDirectory
+                WorkingDirectory = workingDirectory,
             };
 
             // Read the output
