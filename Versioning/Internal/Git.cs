@@ -10,6 +10,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Text.RegularExpressions;
 using UnityEngine;
+using Debug = UnityEngine.Debug;
 
 namespace Exanite.Building.Versioning.Internal
 {
@@ -139,6 +140,10 @@ namespace Exanite.Building.Versioning.Internal
             using (var process = new Process())
             {
                 var workingDirectory = GetRepoRoot();
+
+                Debug.Log(arguments);
+                Debug.Log(workingDirectory);
+
                 var exitCode = process.Run(GitExecutableName, arguments, workingDirectory, out var output, out var errors);
 
                 if (exitCode != 0)
