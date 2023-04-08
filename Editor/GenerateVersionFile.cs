@@ -14,7 +14,8 @@ namespace Exanite.Building.Editor
 #endif
         public static void Generate(BuildTarget target, string pathToBuiltProject)
         {
-            var versionFilePath = Path.Combine(pathToBuiltProject, "VERSION");
+            var buildDirectoryPath = Path.GetDirectoryName(pathToBuiltProject);
+            var versionFilePath = Path.Combine(buildDirectoryPath, "VERSION");
 
             File.WriteAllText(versionFilePath, GameVersion.Generate().ToString());
         }
