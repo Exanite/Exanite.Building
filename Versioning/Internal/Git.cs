@@ -120,29 +120,9 @@ namespace Exanite.Building.Versioning.Internal
         /// </summary>
         public static string Run(string arguments)
         {
-            string GetRepoRoot()
-            {
-                var currentDirectory = new DirectoryInfo(Application.dataPath);
-                while (currentDirectory != null)
-                {
-                    var gitFolderPath = Path.Combine(currentDirectory.FullName, ".git");
-                    if (Directory.Exists(gitFolderPath))
-                    {
-                        return currentDirectory.FullName;
-                    }
-
-                    currentDirectory = currentDirectory.Parent;
-                }
-
-                return Application.dataPath;
-            }
-
             using (var process = new Process())
             {
-                var workingDirectory = GetRepoRoot();
-
-                Debug.Log(arguments);
-                Debug.Log(workingDirectory);
+                var workingDirectory = Application.dataPath;
 
                 var exitCode = process.Run(GitExecutableName, arguments, workingDirectory, out var output, out var errors);
 
