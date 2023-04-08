@@ -19,9 +19,7 @@ namespace Exanite.Building.Editor
             var isGithubActions = Environment.GetEnvironmentVariable("GITHUB_ACTIONS")?.ToLower() == "true";
             if (isGithubActions)
             {
-                var githubWorkspace = Environment.GetEnvironmentVariable("GITHUB_WORKSPACE");
-
-                Git.Run($"config --global --add safe.directory {githubWorkspace}");
+                Git.Run("config --global --add safe.directory '*'");
             }
 
             var buildDirectoryPath = Path.GetDirectoryName(pathToBuiltProject);

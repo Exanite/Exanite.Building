@@ -16,7 +16,7 @@ namespace Exanite.Building.Versioning.Internal
     /// </summary>
     public static class Git
     {
-        public const string Application = @"git";
+        public const string GitExecutableName = @"git";
 
         /// <summary>
         ///     Generates a version based on the latest tag and the amount of
@@ -120,7 +120,7 @@ namespace Exanite.Building.Versioning.Internal
             using (var process = new Process())
             {
                 var workingDirectory = UnityEngine.Application.dataPath;
-                var exitCode = process.Run(Application, arguments, workingDirectory, out var output, out var errors);
+                var exitCode = process.Run(GitExecutableName, arguments, workingDirectory, out var output, out var errors);
 
                 if (exitCode != 0)
                 {
