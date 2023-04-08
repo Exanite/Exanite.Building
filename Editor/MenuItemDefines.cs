@@ -1,7 +1,7 @@
 ﻿using UnityEditor;
 using UnityEngine;
 
-namespace Exanite.Arpg.Editor.Builds
+namespace Exanite.Building.Editor
 {
     /// <summary>
     ///     Defines all the Unity MenuItems used in this assembly

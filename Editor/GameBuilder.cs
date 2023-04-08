@@ -4,7 +4,7 @@ using Exanite.Building.Versioning.Git;
 using UnityEditor;
 using UnityEngine;
 
-namespace Exanite.Arpg.Editor.Builds
+namespace Exanite.Building.Editor
 {
     /// <summary>
     ///     Used to build the game
