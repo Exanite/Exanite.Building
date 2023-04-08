@@ -1,25 +1,13 @@
-﻿using Exanite.Arpg.Versioning.Internal;
+﻿using Exanite.Building.Versioning.Git;
 using UnityEngine;
 
-namespace Exanite.Arpg.Versioning
+namespace Exanite.Building.Versioning
 {
     /// <summary>
     ///     Contains information about the game and its current version
     /// </summary>
     public class GameVersion : MonoBehaviour
     {
-        private ILog log;
-
-        [Inject]
-        public void Inject(ILog log)
-        {
-            this.log = log.ForContext<GameVersion>();
-
-            GetGameInfo();
-
-            LogCurrentVersion();
-        }
-
         /// <summary>
         ///     Game company name
         /// </summary>
@@ -56,7 +44,7 @@ namespace Exanite.Arpg.Versioning
         /// </summary>
         public void LogCurrentVersion()
         {
-            log.Information("The current version of the game is '{Version}'", Version);
+            Debug.Log($"The current version of the game is {Version}");
         }
 
         private void GetGameInfo()
@@ -77,11 +65,11 @@ namespace Exanite.Arpg.Versioning
             {
                 try
                 {
-                    Version = $"{Git.GetBranchName()}/{Git.GenerateCommitVersion()}";
+                    Version = $"{Git.Git.GetBranchName()}/{Git.Git.GenerateCommitVersion()}";
                 }
-                catch (GitException e)
+                catch (GitException)
                 {
-                    log.Error(e, "Failed to generate build version");
+                    Debug.LogError("Failed to generate build version");
                 }
             }
             else

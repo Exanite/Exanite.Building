@@ -9,7 +9,7 @@ using System;
 using System.Diagnostics;
 using System.Text.RegularExpressions;
 
-namespace Exanite.Arpg.Versioning.Internal
+namespace Exanite.Building.Versioning.Git
 {
     /// <summary>
     ///     Used to run Git commands in C#
