@@ -17,21 +17,17 @@ namespace Exanite.Building.Editor
         public static void Generate(BuildTarget target, string pathToBuiltProject)
         {
             var isGithubActions = Environment.GetEnvironmentVariable("GITHUB_ACTIONS")?.ToLower() == "true";
-
             if (isGithubActions)
             {
-                Git.Run("config --global --add safe.directory /github/workspace");
+                var githubWorkspace = Environment.GetEnvironmentVariable("GITHUB_WORKSPACE");
+
+                Git.Run($"config --global --add safe.directory {githubWorkspace}");
             }
 
             var buildDirectoryPath = Path.GetDirectoryName(pathToBuiltProject);
             var versionFilePath = Path.Combine(buildDirectoryPath, "VERSION");
 
             File.WriteAllText(versionFilePath, GameVersion.Generate().ToString());
-
-            if (isGithubActions)
-            {
-                Git.Run("config --global --unset safe.directory /github/workspace");
-            }
         }
     }
 }
