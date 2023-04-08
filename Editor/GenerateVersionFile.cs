@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.IO;
 using Exanite.Building.Versioning;
 using Exanite.Building.Versioning.Internal;
@@ -18,20 +17,12 @@ namespace Exanite.Building.Editor
 #endif
         public static void Generate(BuildTarget target, string pathToBuiltProject)
         {
-            var environmentAsText = "";
-            foreach (DictionaryEntry environmentVariable in Environment.GetEnvironmentVariables())
-            {
-                environmentAsText += $"\n{environmentVariable.Key}={environmentVariable.Value}";
-            }
-
-            Debug.Log(environmentAsText);
-            
             var githubWorkspace = Environment.GetEnvironmentVariable("GITHUB_WORKSPACE");
             if (githubWorkspace != null)
             {
-                var arguments = $"Running git with arguments: config --global --add safe.directory {githubWorkspace}";
+                var arguments = $"config --global --add safe.directory {githubWorkspace}";
 
-                Debug.Log(arguments);
+                Debug.Log($"Running git with arguments: {arguments}");
                 Git.Run(arguments);
             }
 
