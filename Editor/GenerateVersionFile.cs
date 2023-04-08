@@ -1,7 +1,5 @@
-using System;
 using System.IO;
 using Exanite.Building.Versioning;
-using Exanite.Building.Versioning.Internal;
 using UnityEditor;
 #if EXANITE_GENERATE_VERSION_FILE
 using UnityEditor.Callbacks;
@@ -16,22 +14,10 @@ namespace Exanite.Building.Editor
 #endif
         public static void Generate(BuildTarget target, string pathToBuiltProject)
         {
-            var isGithubActions = Environment.GetEnvironmentVariable("GITHUB_ACTIONS")?.ToLower() == "true";
-
-            if (isGithubActions)
-            {
-                Git.Run("config --global --add safe.directory /github/workspace");
-            }
-
             var buildDirectoryPath = Path.GetDirectoryName(pathToBuiltProject);
             var versionFilePath = Path.Combine(buildDirectoryPath, "VERSION");
 
             File.WriteAllText(versionFilePath, GameVersion.Generate().ToString());
-
-            if (isGithubActions)
-            {
-                Git.Run("config --global --unset safe.directory /github/workspace");
-            }
         }
     }
 }
