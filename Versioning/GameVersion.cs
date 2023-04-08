@@ -1,5 +1,4 @@
 ﻿using Exanite.Building.Versioning.Internal;
-using UnityEngine;
 
 namespace Exanite.Building.Versioning
 {
@@ -32,16 +31,7 @@ namespace Exanite.Building.Versioning
 
         public static GameVersion Generate()
         {
-            try
-            {
-                return new GameVersion(Git.GetBranchName(), Git.GenerateCommitVersion());
-            }
-            catch (GitException e)
-            {
-                Debug.LogError($"Failed to generate build version\n{e}");
-
-                return DefaultVersion;
-            }
+            return new GameVersion(Git.GetBranchName(), Git.GenerateCommitVersion());
         }
     }
 }
