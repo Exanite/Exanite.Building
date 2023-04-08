@@ -3,6 +3,7 @@ using System.IO;
 using Exanite.Building.Versioning;
 using Exanite.Building.Versioning.Internal;
 using UnityEditor;
+using UnityEngine;
 #if EXANITE_GENERATE_VERSION_FILE
 using UnityEditor.Callbacks;
 #endif
@@ -19,6 +20,8 @@ namespace Exanite.Building.Editor
             var isGithubActions = Environment.GetEnvironmentVariable("GITHUB_ACTIONS")?.ToLower() == "true";
             if (isGithubActions)
             {
+                Debug.Log("Adding all directories as safe directories for Git");
+                
                 Git.Run("config --global --add safe.directory '*'");
             }
 
