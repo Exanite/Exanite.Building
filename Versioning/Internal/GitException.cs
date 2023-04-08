@@ -7,7 +7,7 @@
 
 using System;
 
-namespace Exanite.Building.Versioning.Git
+namespace Exanite.Building.Versioning.Internal
 {
     /// <summary>
     ///     The exception that is thrown when Git fails to exit successfully

@@ -9,7 +9,7 @@ using System;
 using System.Diagnostics;
 using System.Text.RegularExpressions;
 
-namespace Exanite.Building.Versioning.Git
+namespace Exanite.Building.Versioning.Internal
 {
     /// <summary>
     ///     Used to run Git commands in C#
@@ -45,27 +45,16 @@ namespace Exanite.Building.Versioning.Git
 
         /// <summary>
         ///     Gets the current checked out branch's name
-        ///     <para/>
-        ///     This is for retrieving the correct branch name during Github
-        ///     Actions CI, but can be used normally
         /// </summary>
-        public static string GetBranchNameGithubActionsFix()
+        public static string GetBranchName()
         {
+            // Properly handle Github Actions
             var headRef = Environment.GetEnvironmentVariable("GITHUB_HEAD_REF");
-
             if (!string.IsNullOrWhiteSpace(headRef))
             {
                 return headRef;
             }
 
-            return GetBranchName();
-        }
-
-        /// <summary>
-        ///     Gets the current checked out branch's name
-        /// </summary>
-        public static string GetBranchName()
-        {
             return Run(@"name-rev --name-only HEAD");
         }
 

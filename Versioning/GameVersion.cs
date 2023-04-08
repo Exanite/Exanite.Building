@@ -1,4 +1,4 @@
-﻿using Exanite.Building.Versioning.Git;
+﻿using Exanite.Building.Versioning.Internal;
 using UnityEngine;
 
 namespace Exanite.Building.Versioning
@@ -6,81 +6,42 @@ namespace Exanite.Building.Versioning
     /// <summary>
     ///     Contains information about the game and its current version
     /// </summary>
-    public class GameVersion : MonoBehaviour
+    public struct GameVersion
     {
         /// <summary>
-        ///     Game company name
-        /// </summary>
-        public string Company { get; set; }
-
-        /// <summary>
-        ///     Game product name
-        /// </summary>
-        public string Product { get; set; }
-
-        /// <summary>
-        ///     The version of the game
+        ///     The default version.
         ///     <para/>
-        ///     Format: branch/0.0.0.0
+        ///     Note: This is also used when the Git commit version generation
+        ///     fails (Git was not found in Path).
         /// </summary>
-        public string Version { get; private set; }
+        public static GameVersion DefaultVersion => new("branch", "0.0.0.0");
 
-        /// <summary>
-        ///     The branch the game is built on
-        ///     <para/>
-        ///     Format: branch
-        /// </summary>
-        public string Branch { get; private set; }
-
-        /// <summary>
-        ///     The version number of the game
-        ///     <para/>
-        ///     Format: 0.0.0.0
-        /// </summary>
-        public string Number { get; private set; }
-
-        /// <summary>
-        ///     Logs the current game version
-        /// </summary>
-        public void LogCurrentVersion()
+        public GameVersion(string branch, string commitVersion)
         {
-            Debug.Log($"The current version of the game is {Version}");
+            Branch = branch;
+            CommitVersion = commitVersion;
         }
 
-        private void GetGameInfo()
+        public string Branch { get; }
+        public string CommitVersion { get; }
+
+        public override string ToString()
         {
-            GetProductInfo();
-            GetVersionInfo();
+            return $"{Branch}/{CommitVersion}";
         }
 
-        private void GetProductInfo()
+        public static GameVersion Generate()
         {
-            Company = Application.companyName;
-            Product = Application.productName;
-        }
-
-        private void GetVersionInfo()
-        {
-            if (Application.isEditor)
+            try
             {
-                try
-                {
-                    Version = $"{Git.Git.GetBranchName()}/{Git.Git.GenerateCommitVersion()}";
-                }
-                catch (GitException)
-                {
-                    Debug.LogError("Failed to generate build version");
-                }
+                return new GameVersion(Git.GetBranchName(), Git.GenerateCommitVersion());
             }
-            else
+            catch (GitException e)
             {
-                Version = Application.version;
+                Debug.LogError($"Failed to generate build version\n{e}");
+
+                return DefaultVersion;
             }
-
-            var index = Version.LastIndexOf('/');
-
-            Branch = Version.Substring(0, index);
-            Number = Version.Substring(index + 1);
         }
     }
 }

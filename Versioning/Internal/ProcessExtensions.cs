@@ -8,7 +8,7 @@
 using System.Diagnostics;
 using System.Text;
 
-namespace Exanite.Building.Versioning.Git
+namespace Exanite.Building.Versioning.Internal
 {
     public static class ProcessExtensions
     {
