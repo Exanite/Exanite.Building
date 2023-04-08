@@ -1,9 +1,9 @@
 ﻿// Notice:
-// This code has been modified for use in Exanite.Arpg
+// This code has been modified for use in Exanite.Building
 //
 // The original code can be found at the link below under the MIT License:
-// Code: https://github.com/webbertakken/unity-builder/tree/master/action/default-build-script/Assets/Editor/System
-// License: https://github.com/webbertakken/unity-builder/blob/master/LICENSE
+// Code: https://github.com/game-ci/unity-builder/blob/3032a4ab97a9bb3fe204eeecd61b5abcc14885d3/dist/default-build-script/Assets/Editor/UnityBuilderAction/
+// License: https://github.com/game-ci/unity-builder/blob/3032a4ab97a9bb3fe204eeecd61b5abcc14885d3/LICENSE
 
 using System.Diagnostics;
 using System.Text;
@@ -27,11 +27,11 @@ namespace Exanite.Building.Versioning.Git
         /// <param name="workingDirectory">
         ///     Directory the <see cref="Process"/> will run in
         /// </param>
-        /// <param name="output">
+        /// <param name="stdout">
         ///     <see cref="string"/> containing output from the
         ///     <see cref="Process"/>
         /// </param>
-        /// <param name="errors">
+        /// <param name="stderr">
         ///     <see cref="string"/> containing errors from the
         ///     <see cref="Process"/>
         /// </param>
@@ -43,8 +43,8 @@ namespace Exanite.Building.Versioning.Git
             string application,
             string arguments,
             string workingDirectory,
-            out string output,
-            out string errors)
+            out string stdout,
+            out string stderr)
         {
             // Configure how to run the application
             process.StartInfo = new ProcessStartInfo
@@ -71,8 +71,8 @@ namespace Exanite.Building.Versioning.Git
             process.WaitForExit();
 
             // Format the output
-            output = outputBuilder.ToString().TrimEnd();
-            errors = errorsBuilder.ToString().TrimEnd();
+            stdout = outputBuilder.ToString().TrimEnd();
+            stderr = errorsBuilder.ToString().TrimEnd();
 
             return process.ExitCode;
         }

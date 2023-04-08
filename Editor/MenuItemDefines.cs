@@ -8,10 +8,10 @@ namespace Exanite.Building.Editor
     /// </summary>
     public static class MenuItemDefines
     {
-        [MenuItem("Build/Log current build version", priority = 200)]
-        private static void LogBuildVersion()
+        [MenuItem("Tools/Exanite.Builds/Log Current Game Version", priority = 200)]
+        private static void LogGameVersion()
         {
-            var version = GameBuilder.GenerateBuildVersion();
+            var version = GameBuilder.GenerateGameVersion();
 
             Debug.Log($"The current version of the game is '{version}'");
         }

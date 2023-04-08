@@ -1,9 +1,9 @@
 ﻿// Notice:
-// This code has been modified for use in Exanite.Arpg
+// This code has been modified for use in Exanite.Building
 //
 // The original code can be found at the link below under the MIT License:
-// Code: https://github.com/webbertakken/unity-builder/tree/master/action/default-build-script/Assets/Editor/Versioning
-// License: https://github.com/webbertakken/unity-builder/blob/master/LICENSE
+// Code: https://github.com/game-ci/unity-builder/blob/3032a4ab97a9bb3fe204eeecd61b5abcc14885d3/dist/default-build-script/Assets/Editor/UnityBuilderAction/
+// License: https://github.com/game-ci/unity-builder/blob/3032a4ab97a9bb3fe204eeecd61b5abcc14885d3/LICENSE
 
 using System;
 

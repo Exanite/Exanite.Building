@@ -110,7 +110,7 @@ namespace Exanite.Building.Editor
         ///     <para/>
         ///     Format: branch/0.0.0.0
         /// </summary>
-        public static string GenerateBuildVersion()
+        public static string GenerateGameVersion()
         {
             try
             {
@@ -126,7 +126,7 @@ namespace Exanite.Building.Editor
 
         private static void SetBuildVersion()
         {
-            PlayerSettings.bundleVersion = GenerateBuildVersion();
+            PlayerSettings.bundleVersion = GenerateGameVersion();
         }
 
         private static void ResetBuildVersion()
