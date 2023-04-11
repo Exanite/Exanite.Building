@@ -10,7 +10,7 @@ namespace Exanite.Building.Editor
     internal static class MenuItemDefines
     {
         [MenuItem("Tools/Exanite.Building/Log Current Game Version")]
-        private static void LogGameVersion()
+        public static void LogGameVersion()
         {
             var version = GameVersion.Generate().ToString();
 
