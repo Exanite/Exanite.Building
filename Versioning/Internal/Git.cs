@@ -7,23 +7,24 @@
 
 using System;
 using System.Diagnostics;
-using System.IO;
 using System.Text.RegularExpressions;
 using UnityEngine;
-using Debug = UnityEngine.Debug;
 
 namespace Exanite.Building.Versioning.Internal
 {
     /// <summary>
-    ///     Used to run Git commands in C#
+    ///     Used to run Git commands in C#.
     /// </summary>
     public static class Git
     {
+        public static Regex IsDetachedHeadRegex { get; } = new(@"^\* \(HEAD detached", RegexOptions.Multiline);
+        public static Regex GetBranchNameRegex { get; } = new(@"^\* (?<Branch>.+)$", RegexOptions.Multiline);
+
         public const string GitExecutableName = @"git";
 
         /// <summary>
         ///     Generates a version based on the latest tag and the amount of
-        ///     commits
+        ///     commits.
         ///     <para/>
         ///     Format: 0.1.2.3 (where 3 is the amount of commits)
         /// </summary>
@@ -47,7 +48,7 @@ namespace Exanite.Building.Versioning.Internal
         }
 
         /// <summary>
-        ///     Gets the current checked out branch's name
+        ///     Gets the current checked out branch's name. May return null if the current commit is not on a branch.
         /// </summary>
         public static string GetBranchName()
         {
@@ -58,11 +59,22 @@ namespace Exanite.Building.Versioning.Internal
                 return headRef;
             }
 
-            return Run(@"name-rev --name-only HEAD");
+            if (IsDetachedHead())
+            {
+                return null;
+            }
+
+            var match = GetBranchNameRegex.Match(Run(@"branch"));
+            if (!match.Success)
+            {
+                return null;
+            }
+
+            return match.Groups["Branch"].Value;
         }
 
         /// <summary>
-        ///     Gets the total number of commits
+        ///     Gets the total number of commits.
         /// </summary>
         public static int GetTotalNumberOfCommits()
         {
@@ -73,7 +85,7 @@ namespace Exanite.Building.Versioning.Internal
 
         /// <summary>
         ///     Retrieves the build version from git based on the most recent
-        ///     matching tag and commit history
+        ///     matching tag and commit history.
         ///     <para/>
         ///     Format: 0.1.2.3 (where 3 is the amount of commits)
         /// </summary>
@@ -89,8 +101,13 @@ namespace Exanite.Building.Versioning.Internal
             return version;
         }
 
+        public static string GetCommitHashShort()
+        {
+            return Run(@"rev-parse --short HEAD");
+        }
+
         /// <summary>
-        ///     Gets version string
+        ///     Gets version string.
         ///     <para/>
         ///     Format: v0.1-2-g12345678 (where 2 is the amount of commits since
         ///     the last tag)
@@ -103,7 +120,7 @@ namespace Exanite.Building.Versioning.Internal
         }
 
         /// <summary>
-        ///     Whether or not the repository has any version tags yet
+        ///     Whether or not the repository has any version tags yet.
         /// </summary>
         public static bool HasAnyVersionTags()
         {
@@ -116,7 +133,15 @@ namespace Exanite.Building.Versioning.Internal
         }
 
         /// <summary>
-        ///     Runs git binary with any given arguments and returns the output.
+        ///     Returns true if the current commit is not on a branch.
+        /// </summary>
+        public static bool IsDetachedHead()
+        {
+            return IsDetachedHeadRegex.IsMatch(Run(@"branch"));
+        }
+
+        /// <summary>
+        ///     Runs git binary with any given arguments and returns the output..
         /// </summary>
         public static string Run(string arguments)
         {

@@ -13,25 +13,34 @@ namespace Exanite.Building.Versioning
         ///     Note: This is also used when the Git commit version generation
         ///     fails (Git was not found in Path).
         /// </summary>
-        public static GameVersion DefaultVersion => new("branch", "0.0.0.0");
+        public static GameVersion DefaultVersion => new("branch", "0.0.0.0", "0");
 
-        public GameVersion(string branch, string commitVersion)
+        public GameVersion(string branch, string commitVersion, string commitHash)
         {
             Branch = branch;
             CommitVersion = commitVersion;
+            CommitHash = commitHash;
         }
 
         public string Branch { get; }
         public string CommitVersion { get; }
+        public string CommitHash { get; }
 
         public override string ToString()
         {
-            return $"{Branch}/{CommitVersion}";
+            if (Branch != null)
+            {
+                return $"{Branch}/{CommitVersion} {CommitHash}";
+            }
+            else
+            {
+                return $"{CommitHash}";
+            }
         }
 
         public static GameVersion Generate()
         {
-            return new GameVersion(Git.GetBranchName(), Git.GenerateCommitVersion());
+            return new GameVersion(Git.GetBranchName(), Git.GenerateCommitVersion(), Git.GetCommitHashShort());
         }
     }
 }
