@@ -1,3 +1,4 @@
+#if UNITY_EDITOR
 using System;
 using System.IO;
 using Exanite.Building.Versioning;
@@ -33,3 +34,4 @@ namespace Exanite.Building.Editor
         }
     }
 }
+#endif

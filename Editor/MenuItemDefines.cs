@@ -1,4 +1,5 @@
-﻿using Exanite.Building.Versioning;
+﻿#if UNITY_EDITOR
+using Exanite.Building.Versioning;
 using UnityEditor;
 using UnityEngine;
 
@@ -18,3 +19,4 @@ namespace Exanite.Building.Editor
         }
     }
 }
+#endif
