@@ -56,7 +56,7 @@ namespace Exanite.Building.Versioning.Internal
             var headRef = Environment.GetEnvironmentVariable("GITHUB_HEAD_REF");
             if (!string.IsNullOrWhiteSpace(headRef))
             {
-                return headRef;
+                return headRef.Trim();
             }
 
             if (IsDetachedHead())
@@ -70,7 +70,7 @@ namespace Exanite.Building.Versioning.Internal
                 return null;
             }
 
-            return match.Groups["Branch"].Value;
+            return match.Groups["Branch"].Value.Trim();
         }
 
         /// <summary>

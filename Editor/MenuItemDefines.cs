@@ -1,4 +1,6 @@
-﻿using Exanite.Building.Versioning;
+﻿#if UNITY_EDITOR
+#if !EXANITE_BUILDING_DISABLE_MENU_ITEMS
+using Exanite.Building.Versioning;
 using UnityEditor;
 using UnityEngine;
 
@@ -18,3 +20,5 @@ namespace Exanite.Building.Editor
         }
     }
 }
+#endif
+#endif

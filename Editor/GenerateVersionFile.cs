@@ -1,10 +1,11 @@
+#if UNITY_EDITOR
 using System;
 using System.IO;
 using Exanite.Building.Versioning;
 using Exanite.Building.Versioning.Internal;
 using UnityEditor;
 using UnityEngine;
-#if EXANITE_GENERATE_VERSION_FILE
+#if EXANITE_BUILDING_GENERATE_VERSION_FILE
 using UnityEditor.Callbacks;
 #endif
 
@@ -12,7 +13,7 @@ namespace Exanite.Building.Editor
 {
     public static class GenerateVersionFile
     {
-#if EXANITE_GENERATE_VERSION_FILE
+#if EXANITE_BUILDING_GENERATE_VERSION_FILE
         [PostProcessBuild]
 #endif
         public static void Generate(BuildTarget target, string pathToBuiltProject)
@@ -33,3 +34,4 @@ namespace Exanite.Building.Editor
         }
     }
 }
+#endif
