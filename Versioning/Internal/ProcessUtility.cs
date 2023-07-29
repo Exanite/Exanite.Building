@@ -10,7 +10,7 @@ using System.Text;
 
 namespace Exanite.Building.Versioning.Internal
 {
-    public static class ProcessExtensions
+    public static class ProcessUtility
     {
         /// <summary>
         ///     Executes an application with given arguments
