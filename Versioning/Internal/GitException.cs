@@ -10,12 +10,12 @@ using System;
 namespace Exanite.Building.Versioning.Internal
 {
     /// <summary>
-    ///     The exception that is thrown when Git fails to exit successfully
+    /// The exception that is thrown when Git fails to exit successfully
     /// </summary>
     public class GitException : InvalidOperationException
     {
         /// <summary>
-        ///     Creates a new <see cref="GitException"/>
+        /// Creates a new <see cref="GitException"/>
         /// </summary>
         public GitException(int exitCode, string errors) : base($"\n{errors}")
         {
@@ -23,7 +23,7 @@ namespace Exanite.Building.Versioning.Internal
         }
 
         /// <summary>
-        ///     Exit code specified by Git
+        /// Exit code specified by Git
         /// </summary>
         public int ExitCode { get; }
     }

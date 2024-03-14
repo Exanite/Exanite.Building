@@ -13,30 +13,30 @@ namespace Exanite.Building.Versioning.Internal
     public static class ProcessUtility
     {
         /// <summary>
-        ///     Executes an application with given arguments
+        /// Executes an application with given arguments
         /// </summary>
         /// <param name="process">
-        ///     The <see cref="Process"/> to use
+        /// The <see cref="Process"/> to use
         /// </param>
         /// <param name="application">
-        ///     Application for the <see cref="Process"/> to run
+        /// Application for the <see cref="Process"/> to run
         /// </param>
         /// <param name="arguments">
-        ///     Arguments to supply to the <see cref="Process"/>
+        /// Arguments to supply to the <see cref="Process"/>
         /// </param>
         /// <param name="workingDirectory">
-        ///     Directory the <see cref="Process"/> will run in
+        /// Directory the <see cref="Process"/> will run in
         /// </param>
         /// <param name="stdout">
-        ///     <see cref="string"/> containing output from the
-        ///     <see cref="Process"/>
+        /// <see cref="string"/> containing output from the
+        /// <see cref="Process"/>
         /// </param>
         /// <param name="stderr">
-        ///     <see cref="string"/> containing errors from the
-        ///     <see cref="Process"/>
+        /// <see cref="string"/> containing errors from the
+        /// <see cref="Process"/>
         /// </param>
         /// <returns>
-        ///     The process exit code
+        /// The process exit code
         /// </returns>
         public static int Run(
             this Process process,

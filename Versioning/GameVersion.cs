@@ -3,15 +3,15 @@
 namespace Exanite.Building.Versioning
 {
     /// <summary>
-    ///     Contains information about the game and its current version
+    /// Contains information about the game and its current version
     /// </summary>
     public struct GameVersion
     {
         /// <summary>
-        ///     The default version.
-        ///     <para/>
-        ///     Note: This is also used when the Git commit version generation
-        ///     fails (Git was not found in Path).
+        /// The default version.
+        /// <para/>
+        /// Note: This is also used when the Git commit version generation
+        /// fails (Git was not found in Path).
         /// </summary>
         public static GameVersion DefaultVersion => new("branch", "0.0.0.0", "0");
 
